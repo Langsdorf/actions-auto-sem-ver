@@ -1,0 +1,34 @@
+name: "Build and Test"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - "releases/*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        if: ${{ !env.ACT }}
+      - run: |
+          npm install
+        if: ${{ !env.ACT }}
+      - run: |
+          npm run all
+        if: ${{ !env.ACT }}
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        id: auto-version
+        with:
+          create-tag: true
+      - run: |
+          echo "Version: ${{ steps.auto-version.outputs.version }}"

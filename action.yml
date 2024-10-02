@@ -1,0 +1,43 @@
+name: "auto-sem-versioning"
+author: "Langsdorf"
+description: "Github Action to automatically bump the version of your project based on the commit messages and tags."
+branding:
+  icon: "settings"
+  color: "blue"
+inputs:
+  commit:
+    description: "The commit message to use for the version bump."
+    required: false
+    default: ""
+  version:
+    description: "The version to use."
+    required: false
+    default: ""
+  initial-version:
+    description: "The initial version to use."
+    required: false
+    default: "1.0.0"
+  error-on-invalid-commit:
+    description: "Whether to throw an error if the commit message is invalid."
+    required: false
+    default: "false"
+  tag-pattern:
+    description: "The pattern to match the tags in the repository."
+    required: false
+    default: "(v)?(\\d+\\.\\d+\\.\\d+)"
+  tag-prefix:
+    description: "The prefix to add to the new version."
+    required: false
+    default: ""
+  create-tag:
+    description: "Whether to create a new tag in the repository."
+    required: false
+    default: "false"
+outputs:
+  version:
+    description: "The generated version."
+  tag:
+    description: "The generated tag with prefix."
+runs:
+  using: "node20"
+  main: "dist/index.js"
