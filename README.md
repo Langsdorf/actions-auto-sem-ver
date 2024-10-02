@@ -79,7 +79,7 @@ The new tag to create in the repository. If `create-tag` is `false`, this output
 ```yaml
 name: Generate Version
 id: gen-version
-uses: Langsdorf/auto-sem-versioning@1.0.0
+uses: Langsdorf/actions-auto-sem-ver@1.0.0
 with:
   create-tag: true
 ```
@@ -87,7 +87,7 @@ with:
 ```yaml
 name: Generate Version
 id: gen-version
-uses: Langsdorf/auto-sem-versioning@1.0.0
+uses: Langsdorf/actions-auto-sem-ver@1.0.0
 with:
   initial-version: "1.0.0"
   tag-pattern: '(v)?(\d+\.\d+\.\d+)'

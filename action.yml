@@ -1,4 +1,4 @@
-name: "auto-sem-versioning"
+name: "Automatic Semantic Versioning"
 author: "Langsdorf"
 description: "Github Action to automatically bump the version of your project based on the commit messages and tags."
 branding:
