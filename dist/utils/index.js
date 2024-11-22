@@ -12,7 +12,7 @@ function isInteger(value) {
 }
 exports.PATCH_REGEX = /^(build|chore|ci|docs|fix|perf|refactor|revert|style|test)(\(.+\))?: .+$/;
 exports.MINOR_REGEX = /^(feat|feature)(\(.+\))?: .+$/;
-exports.MAJOR_REGEX = /^(BREAKING CHANGE|breaking)(\(.+\))?: .+$/;
+exports.MAJOR_REGEX = /^(BREAKING CHANGE|breaking|release)(\(.+\))?: .+$/;
 exports.TAG_REGEX = /(v)?(\d+\.\d+\.\d+)/;
 exports.VERSION_REGEX = /^(\d+\.\d+\.\d+)$/;
 function exec(command) {
