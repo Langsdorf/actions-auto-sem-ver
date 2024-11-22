@@ -16,7 +16,7 @@ export function isInteger(value: unknown): value is number {
 export const PATCH_REGEX =
   /^(build|chore|ci|docs|fix|perf|refactor|revert|style|test)(\(.+\))?: .+$/;
 export const MINOR_REGEX = /^(feat|feature)(\(.+\))?: .+$/;
-export const MAJOR_REGEX = /^(BREAKING CHANGE|breaking)(\(.+\))?: .+$/;
+export const MAJOR_REGEX = /^(BREAKING CHANGE|breaking|release)(\(.+\))?: .+$/;
 export const TAG_REGEX = /(v)?(\d+\.\d+\.\d+)/;
 export const VERSION_REGEX = /^(\d+\.\d+\.\d+)$/;
 
