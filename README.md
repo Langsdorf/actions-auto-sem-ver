@@ -43,6 +43,14 @@ The version to use if the repository does't have a tag yet.
 
 Whether to throw an error if the commit message is invalid.
 
+### `version-label-fallback`
+
+| Required: `false`
+| Default: null
+
+If the commit message doesn't match any of the labels, the action will use this label to determine the version.
+Can be `major`, `minor`, or `patch`.
+
 ### `tag-pattern`
 
 | Required: `false`

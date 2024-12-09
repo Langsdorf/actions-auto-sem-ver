@@ -21,6 +21,9 @@ inputs:
     description: "Whether to throw an error if the commit message is invalid."
     required: false
     default: "false"
+  version-label-fallback:
+    description: "The version label to use if the commit message is invalid."
+    required: false
   tag-pattern:
     description: "The pattern to match the tags in the repository."
     required: false
