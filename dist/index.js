@@ -63,7 +63,9 @@ function main() {
         }
         core.info(`Current version: ${version}`);
         const shouldReturnCommitError = core.getBooleanInput("error-on-invalid-commit");
-        const [generatedVersion, error] = (0, generate_version_1.default)(commitInput, version, shouldReturnCommitError);
+        const versionLabelFallback = core.getInput("version-label-fallback", { trimWhitespace: true }) ||
+            "major";
+        const [generatedVersion, error] = (0, generate_version_1.default)(commitInput, version, shouldReturnCommitError, versionLabelFallback);
         if (!generatedVersion || error) {
             core.setFailed((_c = error === null || error === void 0 ? void 0 : error.message) !== null && _c !== void 0 ? _c : "Version could not be generated");
             process.exit(1);
@@ -259,15 +261,28 @@ function extractVersion() {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports["default"] = generateVersion;
 const utils_1 = __nccwpck_require__(5147);
-function generateVersion(commit, currentVersion, shouldReturnCommitError) {
+function generateVersion(commit, currentVersion, shouldReturnCommitError, versionLabelFallback) {
     const parsedNumbers = currentVersion.split(".").map(Number);
     if (parsedNumbers.some((num) => !(0, utils_1.isInteger)(num))) {
         return [undefined, new Error(`Invalid version format ${currentVersion}`)];
     }
     let [major, minor, patch] = parsedNumbers;
     const match = [utils_1.PATCH_REGEX, utils_1.MINOR_REGEX, utils_1.MAJOR_REGEX].find((regex) => regex.test(commit));
-    if (!match && shouldReturnCommitError)
-        return [undefined, new Error("Invalid commit message")];
+    if (!match) {
+        if (shouldReturnCommitError) {
+            return [undefined, new Error("Invalid commit message")];
+        }
+        if (!versionLabelFallback) {
+            return [currentVersion];
+        }
+        if (versionLabelFallback === "major")
+            major++;
+        if (versionLabelFallback === "minor")
+            minor++;
+        if (versionLabelFallback === "patch")
+            patch++;
+        return [`${major}.${minor}.${patch}`];
+    }
     if (match === utils_1.MAJOR_REGEX)
         major++;
     if (match === utils_1.MINOR_REGEX)

@@ -27,10 +27,15 @@ async function main() {
     "error-on-invalid-commit",
   );
 
+  const versionLabelFallback =
+    core.getInput("version-label-fallback", { trimWhitespace: true }) ||
+    "major";
+
   const [generatedVersion, error] = generateVersion(
     commitInput,
     version,
     shouldReturnCommitError,
+    versionLabelFallback,
   );
 
   if (!generatedVersion || error) {

@@ -10,6 +10,7 @@ export default function generateVersion(
   commit: string,
   currentVersion: string,
   shouldReturnCommitError: boolean,
+  versionLabelFallback: string,
 ): Result<string, Error, false> {
   const parsedNumbers = currentVersion.split(".").map(Number);
 
@@ -23,8 +24,21 @@ export default function generateVersion(
     regex.test(commit),
   );
 
-  if (!match && shouldReturnCommitError)
-    return [undefined, new Error("Invalid commit message")];
+  if (!match) {
+    if (shouldReturnCommitError) {
+      return [undefined, new Error("Invalid commit message")];
+    }
+
+    if (!versionLabelFallback) {
+      return [currentVersion];
+    }
+
+    if (versionLabelFallback === "major") major++;
+    if (versionLabelFallback === "minor") minor++;
+    if (versionLabelFallback === "patch") patch++;
+
+    return [`${major}.${minor}.${patch}`];
+  }
 
   if (match === MAJOR_REGEX) major++;
   if (match === MINOR_REGEX) minor++;
